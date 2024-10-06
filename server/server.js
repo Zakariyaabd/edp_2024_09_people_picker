@@ -6,7 +6,7 @@ console.log(process.env?.NODE_ENV)
 let repository;
 switch (process.env?.NODE_ENV) {
   case "development":
-    repository = await import('./repository.js');
+    repository = await import('./mongo_repository.js');
     break;
   case "production":
     repository = await import('./repository-ddb.js');
@@ -17,7 +17,7 @@ switch (process.env?.NODE_ENV) {
 let { createPerson, deletePerson, getAllPeople, getPerson } = repository;
 
 const app = express();
-const port = 3001;
+const port = process.env.port || 3001;
 
 app.use(cors());
 
